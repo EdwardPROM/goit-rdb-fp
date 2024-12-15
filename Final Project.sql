@@ -32,6 +32,131 @@ CREATE TABLE infectious_cases_data (
     FOREIGN KEY (disease_id) REFERENCES diseases(disease_id)
 );
 
+INSERT INTO countries (entity, code)
+SELECT DISTINCT Entity, Code
+FROM infectious_cases;
+
+USE pandemic;
+SELECT * FROM countries;
+
+INSERT INTO diseases (disease_name)
+VALUES 
+    ('Yaws'),
+    ('Polio'),
+    ('Guinea Worm'),
+    ('Rabies'),
+    ('Malaria'),
+    ('HIV'),
+    ('Tuberculosis'),
+    ('Smallpox'),
+    ('Cholera');
+
+USE pandemic;
+SELECT * FROM diseases;
+
+-- Хвороби:('Yaws'),('Polio'),('Guinea Worm'),('Rabies'),('Malaria'), ('HIV'),('Tuberculosis'),('Smallpox'),('Cholera');
+INSERT INTO infectious_cases_data (country_id, year, disease_id, cases)
+SELECT 
+    c.country_id,
+    ic.Year,
+    d.disease_id,
+    ic.Number_yaws
+FROM infectious_cases ic
+JOIN countries c ON ic.Entity = c.entity AND ic.Code = c.code
+JOIN diseases d ON d.disease_name = 'Yaws'
+WHERE ic.Number_yaws IS NOT NULL AND ic.Number_yaws <> '';
+
+INSERT INTO infectious_cases_data (country_id, year, disease_id, cases)
+SELECT 
+    c.country_id,
+    ic.Year,
+    d.disease_id,
+    ic.polio_cases
+FROM infectious_cases ic
+JOIN countries c ON ic.Entity = c.entity AND ic.Code = c.code
+JOIN diseases d ON d.disease_name = 'Polio'
+WHERE ic.polio_cases IS NOT NULL AND ic.polio_cases <> '';
+
+INSERT INTO infectious_cases_data (country_id, year, disease_id, cases)
+SELECT 
+    c.country_id,
+    ic.Year,
+    d.disease_id,
+    ic.cases_guinea_worm
+FROM infectious_cases ic
+JOIN countries c ON ic.Entity = c.entity AND ic.Code = c.code
+JOIN diseases d ON d.disease_name = 'Guinea Worm'
+WHERE ic.cases_guinea_worm IS NOT NULL AND ic.cases_guinea_worm <> '';
+
+INSERT INTO infectious_cases_data (country_id, year, disease_id, cases)
+SELECT 
+    c.country_id,
+    ic.Year,
+    d.disease_id,
+    ic.Number_rabies
+FROM infectious_cases ic
+JOIN countries c ON ic.Entity = c.entity AND ic.Code = c.code
+JOIN diseases d ON d.disease_name = 'Rabies'
+WHERE ic.Number_rabies IS NOT NULL AND ic.Number_rabies <> '';
+
+INSERT INTO infectious_cases_data (country_id, year, disease_id, cases)
+SELECT 
+    c.country_id,
+    ic.Year,
+    d.disease_id,
+    ic.Number_malaria
+FROM infectious_cases ic
+JOIN countries c ON ic.Entity = c.entity AND ic.Code = c.code
+JOIN diseases d ON d.disease_name = 'Malaria'
+WHERE ic.Number_malaria IS NOT NULL AND ic.Number_malaria <> '';
+
+INSERT INTO infectious_cases_data (country_id, year, disease_id, cases)
+SELECT 
+    c.country_id,
+    ic.Year,
+    d.disease_id,
+    ic.Number_hiv
+FROM infectious_cases ic
+JOIN countries c ON ic.Entity = c.entity AND ic.Code = c.code
+JOIN diseases d ON d.disease_name = 'HIV'
+WHERE ic.Number_hiv IS NOT NULL AND ic.Number_hiv <> '';
+
+INSERT INTO infectious_cases_data (country_id, year, disease_id, cases)
+SELECT 
+    c.country_id,
+    ic.Year,
+    d.disease_id,
+    ic.Number_tuberculosis
+FROM infectious_cases ic
+JOIN countries c ON ic.Entity = c.entity AND ic.Code = c.code
+JOIN diseases d ON d.disease_name = 'Tuberculosis'
+WHERE ic.Number_tuberculosis IS NOT NULL AND ic.Number_tuberculosis <> '';
+
+INSERT INTO infectious_cases_data (country_id, year, disease_id, cases)
+SELECT 
+    c.country_id,
+    ic.Year,
+    d.disease_id,
+    ic.Number_smallpox
+FROM infectious_cases ic
+JOIN countries c ON ic.Entity = c.entity AND ic.Code = c.code
+JOIN diseases d ON d.disease_name = 'Smallpox'
+WHERE ic.Number_smallpox IS NOT NULL AND ic.Number_smallpox <> '';
+
+INSERT INTO infectious_cases_data (country_id, year, disease_id, cases)
+SELECT 
+    c.country_id,
+    ic.Year,
+    d.disease_id,
+    ic.Number_cholera_cases
+FROM infectious_cases ic
+JOIN countries c ON ic.Entity = c.entity AND ic.Code = c.code
+JOIN diseases d ON d.disease_name = 'Cholera'
+WHERE ic.Number_cholera_cases IS NOT NULL AND ic.Number_cholera_cases <> '';
+
+USE pandemic;
+SELECT * FROM infectious_cases_data;
+
 -- 3. Проаналізуйте дані:
 -- Для кожної унікальної комбінації Entity та Code або їх id порахуйте середнє, мінімальне, 
 -- максимальне значення та суму для атрибута Number_rabies.
